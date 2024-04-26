@@ -2,8 +2,8 @@ using UnityEngine;
 using UnityEngine.UI;
 public class CardSpawner : MonoBehaviour
 {
-    public GameObject Card;
-    public Data _data;
+    [SerializeField] GameObject Card;
+    [SerializeField] Data _data;
     private GridLayoutGroup GridGroup;
     void Awake()
     {
