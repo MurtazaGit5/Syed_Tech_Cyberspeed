@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5559368e4c3376e47a61ae16189589fa, type: 3}
   m_Name: GameData
   m_EditorClassIdentifier: 
-  rows: 2
-  columns: 2
+  rows: 4
+  columns: 6

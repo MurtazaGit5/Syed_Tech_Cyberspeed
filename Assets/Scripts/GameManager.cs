@@ -1,33 +1,24 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
-    public GameObject Card;
-    public int rows;
-    public int colums;
-    public Transform Grid_Parent;
-    // Start is called before the first frame update
-    void Awake()
+    [SerializeField] GameObject PauseMenu;
+
+    public void RestartGame()
     {
-        GenerateCards();
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
-
-    void Start()
+    public void PauseGame()
     {
-        
+        PauseMenu.SetActive(true);
     }
-    void GenerateCards()
+    public void ResumeGame()
     {
-        int totalcard = rows * colums;
-
-        for (int i = 0; i < totalcard; i++)
-        {
-            GameObject card = Instantiate(Card, Grid_Parent.transform);
-            card.transform.name = "Card_" + i.ToString();
-        }
-
-
+        PauseMenu.SetActive(false);
+    }
+    public void GoBackToMenu()
+    {
+        SceneManager.LoadScene(0);
     }
 }
