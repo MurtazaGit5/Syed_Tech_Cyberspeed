@@ -7,67 +7,65 @@ using UnityEngine;
 using UnityEngine.UI;
 public class LayoutCardGrid : LayoutGroup   //Abstract class
 {
-	public int rows;
-	public int columns;
-	public Vector2 cellSize;
-	public Vector2 spacing;
-	public int preferredPadding;
+    public int rows;    // store the rows value as integer
+    public int colums;   // store the colum value as integer
 
-	public override void CalculateLayoutInputHorizontal()
-	{
-		base.CalculateLayoutInputHorizontal();
-		if (rows == 0 || columns == 0)
-		{
-			rows = 4;
-			columns = 5;
-		}
+    public Vector2 cardsize;    //as our coardinate system is x and y only so used vector2. cardsize variable will set value of rows and colums
 
-		float parentWidth = rectTransform.rect.width;
-		float parentHeight = rectTransform.rect.height;
+    public Vector2 Spacing; // To space between multiple picture
 
-		float cellHeight = (parentHeight - 2 * preferredPadding - (rows - 1) * spacing.y) / rows;
-		float cellWidth = cellHeight;
+    public int prefferedtoppadding; // Set top padding by default
+    public override void CalculateLayoutInputVertical()
+    {
+        if(rows==0 || colums == 0)
+        {
+            rows = 4;
+            colums = 5;
+        }
 
-		cellSize.x = cellWidth;
-		cellSize.y = cellHeight;
+        float parentwidth = rectTransform.rect.width;
+        float parenheight = rectTransform.rect.height;
 
-		padding.left = Mathf.FloorToInt((parentWidth - columns * cellHeight) / 2);
-		padding.top = Mathf.FloorToInt((parentHeight - rows * cellWidth) / 2);
-		padding.bottom = padding.top;
+        float cellHeight = (parenheight-2 * prefferedtoppadding-Spacing.y*(rows-1)) / rows;
+        float cellwidth = cellHeight;
 
-		int columnCount = 0;
-		int rowCount = 0;
+        // If different aspect ration it will fix by using if condition
+        if (cellwidth * colums + Spacing.x * (colums - 1) > parentwidth)
+        {
+            cellwidth = (parentwidth - 2 * prefferedtoppadding - (colums - 1) * Spacing.x) / colums;
+            cellHeight = cellwidth;
+        }
 
-		for (int i = 0; i < rectChildren.Count; i++)
-		{
-			rowCount = i / columns;
-			columnCount = i % columns;
+        cardsize = new Vector2(cellwidth, cellHeight);
+        //cardsize.x = cellwidth;
+        //cardsize.y = cellHeight;
 
-			var item = rectChildren[i];
+        padding.left = Mathf.FloorToInt((parentwidth-colums*cellwidth-Spacing.x * (colums-1))/1.5f);
+        padding.top = Mathf.FloorToInt((parenheight - rows * cellHeight - Spacing.y * (rows - 1)) / 1.5f);
+        padding.bottom = padding.top;
 
-			var xPos = padding.left + (cellSize.x * columnCount) + (spacing.x * (columnCount - 1));
-			var yPos = padding.top + (cellSize.y * rowCount) + (spacing.y * (rowCount - 1));
+        for(int i = 0; i < rectChildren.Count; i++)
+        {
+            int rowcount = i / colums;
+            int coloumcount = i % colums;
 
-			SetChildAlongAxis(item, 0, xPos, cellSize.x);
-			SetChildAlongAxis(item, 1, yPos, cellSize.y);
-		}
+            var item = rectChildren[i];
 
-	}
+            var xpos = padding.left+ cardsize.x * coloumcount + Spacing.x * (coloumcount-1);
+            var ypos = padding.top+ cardsize.y * rowcount +Spacing.y * (rowcount-1);
 
-	public RectTransform GetRectTransform()
-	{
-		return rectTransform;
-	}
+            SetChildAlongAxis(item,0,xpos,cardsize.x);
+            SetChildAlongAxis(item, 1, ypos, cardsize.y);
+        }
+    }
 
-	public override void CalculateLayoutInputVertical()
-	{
-	}
+    public override void SetLayoutHorizontal()
+    {
+        return;
+    }
 
-	public override void SetLayoutHorizontal()
-	{
-	}
-
-	public override void SetLayoutVertical()
-	{
-	}
+    public override void SetLayoutVertical()
+    {
+        return;
+    }
 }
