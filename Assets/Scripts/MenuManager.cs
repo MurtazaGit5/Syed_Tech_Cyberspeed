@@ -51,4 +51,8 @@ public class MenuManager : MonoBehaviour
         ChooseMode_Panel.SetActive(false);
         MainMenu_Panel.SetActive(true);
     }
+    public void QuitGame()
+    {
+        Application.Quit(0);
+    }
 }
