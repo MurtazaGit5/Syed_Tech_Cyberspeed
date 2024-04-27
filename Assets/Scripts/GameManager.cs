@@ -23,6 +23,10 @@ public class GameManager : MonoBehaviour
     [HideInInspector]
     public GameObject LastCard;
 
+
+    public AudioSource MatchingSound;
+    public AudioSource MisMatchingSound;
+
     private void Awake()
     {
         if(instance==null)
@@ -40,6 +44,8 @@ public class GameManager : MonoBehaviour
 
     public void Set_Flip_Back()
     {
+        MisMatchingSound.Play();
+
         CurrentCard.transform.GetChild(0).gameObject.SetActive(false);
         CurrentCard.transform.GetChild(1).gameObject.SetActive(true);
 
@@ -54,6 +60,7 @@ public class GameManager : MonoBehaviour
 
     public void GameComplete()
     {
+        MatchingSound.Play();
         if (Grid.transform.childCount <= 2)
         {
             GameComplete_Panel.SetActive(true);
