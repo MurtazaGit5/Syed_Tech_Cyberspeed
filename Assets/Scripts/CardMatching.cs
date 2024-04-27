@@ -7,16 +7,19 @@ public class CardMatching : MonoBehaviour
     [SerializeField] GameObject BackFace_img;
     [SerializeField] GameObject FrontFace_img;
 
-    public static int Moves_counter=0;
-
     void Start()
     {
     }
 
     public void OpenCard()
     {
-        Moves_counter++;
+        GetComponent<Button>().interactable = false;
+        GetComponent<Animator>().SetTrigger("flip");
+    }
 
+    //call this function from animator event trigger
+    public void _ChangeCard_Anim_Trigger()
+    {
         BackFace_img.SetActive(false);
         FrontFace_img.SetActive(true);
 
@@ -29,7 +32,7 @@ public class CardMatching : MonoBehaviour
         {
             GameManager.instance._data.Current_Card_Name = transform.GetChild(0).name;
             GameManager.instance.CurrentCard = transform.gameObject;
-            CheckMatching();
+            Invoke("CheckMatching",0.5f);
         }
     }
 

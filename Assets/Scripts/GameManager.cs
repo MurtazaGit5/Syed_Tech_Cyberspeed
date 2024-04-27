@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+using UnityEngine.UI;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -33,6 +33,10 @@ public class GameManager : MonoBehaviour
 
         LastCard.transform.GetChild(0).gameObject.SetActive(false);
         LastCard.transform.GetChild(1).gameObject.SetActive(true);
+
+        CurrentCard.GetComponent<Button>().interactable = true;
+        LastCard.GetComponent<Button>().interactable = true;
+
 
     }
     public void RestartGame()

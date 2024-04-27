@@ -6,7 +6,6 @@ public class CardSpawner : MonoBehaviour
     [SerializeField] GameObject Card;
     private GridLayoutGroup GridGroup;
 
-
     void Start()
     {
         GenerateCards();
@@ -84,5 +83,13 @@ public class CardSpawner : MonoBehaviour
             GridGroup.cellSize = new Vector2(160,160);
         else
             GridGroup.cellSize = new Vector2(200, 200);
+
+
+        Invoke("DisabledGrid",0.5f);
+    }
+
+    void DisabledGrid()
+    {
+        GridGroup.enabled = false;
     }
 }
