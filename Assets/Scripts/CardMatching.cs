@@ -7,12 +7,17 @@ public class CardMatching : MonoBehaviour
     [SerializeField] GameObject BackFace_img;
     [SerializeField] GameObject FrontFace_img;
 
+    public static int moves=0;
     void Start()
     {
+        
     }
 
     public void OpenCard()
     {
+        moves++;
+        GameManager.instance.Moves_txt.text = "Moves : " + moves.ToString();
+
         GetComponent<Button>().interactable = false;
         GetComponent<Animator>().SetTrigger("flip");
     }
@@ -41,8 +46,11 @@ public class CardMatching : MonoBehaviour
         // if match both cards
         if(GameManager.instance._data.Last_Card_Name== GameManager.instance._data.Current_Card_Name)
         {
+            GameManager.instance.GameComplete();
+
             Destroy(GameManager.instance.LastCard);
             Destroy(GameManager.instance.CurrentCard);
+
 
             DefaultSet();
         }

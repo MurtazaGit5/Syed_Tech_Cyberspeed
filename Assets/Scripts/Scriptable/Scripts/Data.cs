@@ -8,4 +8,6 @@ public class Data : ScriptableObject
 
     public string Current_Card_Name;
     public string Last_Card_Name;
+
+    public string Defficulty_Level;
 }
