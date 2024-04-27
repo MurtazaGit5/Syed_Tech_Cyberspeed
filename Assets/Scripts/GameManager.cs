@@ -4,28 +4,28 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
-    public static GameManager instance;
+    public static GameManager instance; // to use other classes
 
     public Data _data;
-    [SerializeField] Scoring Playerdata;
     public Sprite[] card_images; // List of 15 images
 
-    public GameObject Grid;
+    [SerializeField] Scoring Playerdata;
 
     [SerializeField] GameObject PauseMenu;
     [SerializeField] GameObject GameComplete_Panel;
     [SerializeField] GameObject HighScore_Panel;
     [SerializeField] InputField EnterName_input;
+
     public Text Moves_txt;
+    public GameObject Grid;
+
+    public AudioSource MatchingSound;
+    public AudioSource MisMatchingSound;
 
     [HideInInspector]
     public GameObject CurrentCard;
     [HideInInspector]
     public GameObject LastCard;
-
-
-    public AudioSource MatchingSound;
-    public AudioSource MisMatchingSound;
 
     private void Awake()
     {
@@ -56,7 +56,6 @@ public class GameManager : MonoBehaviour
         LastCard.GetComponent<Button>().interactable = true;
 
     }
-
 
     public void GameComplete()
     {
@@ -110,6 +109,8 @@ public class GameManager : MonoBehaviour
             }
         }
     }
+
+    // it will call when user enter their name and press save then this function will call 
     public void SetPlayerName()
     {
         if (_data.Defficulty_Level == "veryeasy")

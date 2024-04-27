@@ -4,16 +4,13 @@ using UnityEngine;
 using UnityEngine.UI;
 public class CardMatching : MonoBehaviour
 {
-    [SerializeField] GameObject BackFace_img;
-    [SerializeField] GameObject FrontFace_img;
+    [SerializeField] GameObject BackFace_img;       // back of the card 
+    [SerializeField] GameObject FrontFace_img;      //front/real image of card
 
-    public static int moves=0;
-    void Start()
-    {
-        
-    }
+    public static int moves=0;      // scoring system based on moves
 
-    public void OpenCard()
+    // Click to view card 
+    public void OpenCard() 
     {
         moves++;
         GameManager.instance.Moves_txt.text = "Moves : " + moves.ToString();
@@ -41,6 +38,7 @@ public class CardMatching : MonoBehaviour
         }
     }
 
+    // Check pair or not 
     void CheckMatching()
     {
         // if match both cards
@@ -51,16 +49,15 @@ public class CardMatching : MonoBehaviour
             Destroy(GameManager.instance.LastCard);
             Destroy(GameManager.instance.CurrentCard);
 
-
             DefaultSet();
         }
         else
         {
             GameManager.instance.Set_Flip_Back();
-            DefaultSet();
+            DefaultSet(); // by default setting
         }
     }
-
+    // when card become not paired it should be back to default
     void DefaultSet()
     {
         GameManager.instance._data.Last_Card_Name = string.Empty;

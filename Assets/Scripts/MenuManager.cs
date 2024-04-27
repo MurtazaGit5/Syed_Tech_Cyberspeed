@@ -14,7 +14,7 @@ public class MenuManager : MonoBehaviour
 
     private void Start()
     {
-        GetHighScoreData();
+        GetHighScoreData(); // get high score data from scriptable 
     }
     public void StartNewGame()
     {
@@ -29,18 +29,21 @@ public class MenuManager : MonoBehaviour
     {
         _data.columns = col;
     }
+
+    //i make difficulty string in scripbtable for differentiate between multiple matrix
     public void SetDifficulty_Name(string diff)
     {
         _data.Defficulty_Level = diff;
         SceneManager.LoadScene(1);
     }
+
+    //show high score data
     void GetHighScoreData()
     {
         for (int i = 1; i <= _playerdata.Player.Length; i++)
         {
             NameofPerson[i].text = _playerdata.Player[i-1].playername;
             ScoreofPerson[i].text = _playerdata.Player[i - 1].playerscore.ToString() ;
-
         }
     }
     public void GoBackToMenu()
